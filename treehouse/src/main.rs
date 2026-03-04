@@ -1,5 +1,6 @@
 use std::io::stdin;
 
+#[derive(Debug)]
 struct Visitor {
     name: String,
     greeting: String,
@@ -27,7 +28,7 @@ fn prompt_name() -> String {
 }
 
 fn main() {
-    let visitor_list = [
+    let visitor_list = vec![
         Visitor::new("echo", "Hello, Echo!"),
         Visitor::new("scott", "Hola, Scott!"),
         Visitor::new("snoopy", "What's up snoop dog?"),
@@ -42,6 +43,6 @@ fn main() {
 
     match known_visitor {
         Some(visitor) => visitor.greet_visitor(),
-        None => println!("Go away!!{}", name)
+        None => println!("Go away!! {}", name)
     }
 }
