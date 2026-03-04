@@ -28,21 +28,33 @@ fn prompt_name() -> String {
 }
 
 fn main() {
-    let visitor_list = vec![
+    let mut visitor_list = vec![
         Visitor::new("echo", "Hello, Echo!"),
         Visitor::new("scott", "Hola, Scott!"),
         Visitor::new("snoopy", "What's up snoop dog?"),
     ];
 
-    println!("Hello, what is your name?");
-    let name = prompt_name();
+    loop {
+        println!("Hello, what is your name? (Leave empty and press ENTER to quit)");
+        let name = prompt_name();
 
-    let known_visitor = visitor_list
-        .iter()
-        .find(|visitor| visitor.name == name);
+        let known_visitor = visitor_list
+            .iter()
+            .find(|visitor| visitor.name == name);
 
-    match known_visitor {
-        Some(visitor) => visitor.greet_visitor(),
-        None => println!("Go away!! {}", name)
+        match known_visitor {
+            Some(visitor) => visitor.greet_visitor(),
+            None => {
+                if name.is_empty() {
+                    break;
+                } else {
+                    println!("{} is not on the visitor list.", name);
+                    visitor_list.push(Visitor::new(&name, "New friend"));
+                }
+            }
+        }
     }
+
+    println!("The final list of visitors:");
+    println!("{:#?}", visitor_list);
 }
