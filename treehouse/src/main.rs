@@ -19,6 +19,12 @@ impl Visitor {
     }
 }
 
+impl PartialEq for Visitor {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name
+    }
+}
+
 fn prompt_name() -> String {
     let mut your_name = String::new();
     stdin()
